@@ -12,7 +12,9 @@ import (
 
 func main() {
 	flag.Parse()
-
+	if !CheckFlag() {
+		log.Fatalf("Incorrect parameters.")
+	}
 	config, err := google.ConfigFromJSON(GetCredentials(), drive.DriveScope)
 	if err != nil {
 		log.Fatalf("Unable to parse client secret file to config: %v", err)
