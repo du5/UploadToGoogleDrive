@@ -33,6 +33,11 @@ func Up(srv *drive.Service) {
 				Role: "reader",
 				Type: "anyone",
 			}).Do()
+		} else {
+			prl, _ := srv.Permissions.List(upFile.Id).Do()
+			for _, v := range prl.Permissions {
+				_ = srv.Permissions.Delete(upFile.Id, v.Id).Do()
+			}
 		}
 		log.Println("Done.")
 	} else {
